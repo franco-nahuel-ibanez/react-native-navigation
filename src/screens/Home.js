@@ -3,6 +3,7 @@ import React from 'react'
 import { globalStyles } from '../styles/global'
 import {useNavigation} from '@react-navigation/native'
 import {useDrawerStatus} from '@react-navigation/drawer'
+import Card from '../components/Card'
 
 const Home = () => {
 
@@ -12,22 +13,7 @@ const Home = () => {
 
   return (
     <View style={globalStyles.screenContainer}>
-      <Text style={globalStyles.title}>Home</Text>
-
-      <Text style={{...globalStyles.title, marginVertical: 15}}>
-        {drawerStatus === 'open' ? 'Open' : 'Close'}  
-      </Text>
-
-      <Button
-        title='Go to settings'
-        onPress={()=> navigation.navigate('Settings')}
-      />
-
-      <Button
-        title='Open Drawer'
-        onPress={()=> navigation.openDrawer()}
-      />
-
+      <Card />
 
     </View>
   )

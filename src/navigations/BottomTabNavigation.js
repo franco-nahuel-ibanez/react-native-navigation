@@ -25,6 +25,11 @@ const BottomTabsNavigation = ({navigation}) => {
               <FontAwesome name="align-center" style={{marginLeft: 20}} size={24} color={Colors.dark} />
             </Pressable>
           ),
+          headerRight: () => (
+            <Pressable onPress={() => navigation.navigate('Settings')}>
+              <FontAwesome name="cog" style={{marginRight: 20}} size={24} color={Colors.dark} />
+            </Pressable>
+          ),
           tabBarIcon: ({color}) => <FontAwesome name="home" size={24} color={color} />
         }}
       />
