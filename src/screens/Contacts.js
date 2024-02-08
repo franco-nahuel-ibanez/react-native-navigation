@@ -1,29 +1,23 @@
 import { Button, Text, View } from 'react-native'
-import React, {useState} from 'react'
+import React, {useReducer} from 'react'
 import { globalStyles } from '../styles/global'
 import AddContact from '../components/AddContact'
 import ContactList from '../components/ContactList'
+import { contactReducer } from '../reducers/contactReducer'
 
 const Contacts = () => {
-  const [contacts, setContacts] = useState(initialContacts)
+  const [contacts, dispatch] = useReducer(contactReducer, initialContacts)
 
   const handleAddContact = (name) => {
-    setContacts([
-      ...contacts,
-      {
-        id: nextId++,
-        name
-      }
-    ])
+    dispatch({ type: 'ADD', id: nextId++,  name})
   }
 
   const handleDeleteContact = (id) => {
-    setContacts( contacts.filter( contact => contact.id !== id ))
+    dispatch({type: 'DELETE', id})
   }
 
   const handleUpdateContact = (contact) => {
-    setContacts(contacts.map( c => (c.id === contact.id ? contact : c) )
-    )
+    dispatch({type: 'CHANGE', contact})
   }
 
   return (
