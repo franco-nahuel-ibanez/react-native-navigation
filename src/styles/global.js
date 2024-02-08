@@ -12,5 +12,9 @@ export const globalStyles =  StyleSheet.create({
     fontSize: 32,
     fontWeight: 'bold',
     color: Colors.secondary
+  },
+  simpleContainer: {
+    flex: 1,
+    backgroundColor: Colors.ligth
   }
 })
