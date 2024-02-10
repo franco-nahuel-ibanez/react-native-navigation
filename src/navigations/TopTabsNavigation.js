@@ -2,6 +2,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import Home from '../screens/Home';
 import Contacts from '../screens/Contacts';
 import { Colors } from '../constans/colors';
+import ContactsRedux from '../screens/ContactsRedux';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -26,6 +27,11 @@ const TopTabsNavigation = () => {
       <Tab.Screen
         name='Contacts'
         component={Contacts}
+      />
+
+      <Tab.Screen
+        name='Redux'
+        component={ContactsRedux}
       />
 
     </Tab.Navigator>
