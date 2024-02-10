@@ -1,16 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import {View, Button, StyleSheet} from 'react-native'
 import MyInput from "./MyInput";
 import { Colors } from '../constans/colors';
+import { contactsStore } from '../reducers/contactReducer';
 
 const AddContact = ({
   onAddContact
 }) => {
+  const { handleAddContact } = useContext(contactsStore)
+
   const [name, setName] = useState('')
 
   const handleAdd = () => {
     setName('')
-    onAddContact(name)
+    handleAddContact(name)
   }
 
   return (

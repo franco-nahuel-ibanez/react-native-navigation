@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, {useMemo, useState, useContext} from "react";
 import {
   Button,
   StyleSheet,
@@ -12,13 +12,14 @@ import MyInput from "./MyInput";
 import { getRandomPhoto } from "../utils/getRandomPhoto";
 import { Colors } from "../constans/colors";
 import {FontAwesome} from '@expo/vector-icons'
+import { contactsStore } from "../reducers/contactReducer";
 
-const ContactList = ({
-  contacts,
-  onDeleteContact,
-  onUpdateContact
-}) => {
+const ContactList = () => {
+  const { contacts } = useContext(contactsStore)
   
+  if(contacts.length === 0) {
+    return <Text style={styles.title}>Aun no tienes contactos cargados</Text>
+  }
   return (
     <ScrollView>
       {
@@ -26,8 +27,6 @@ const ContactList = ({
           <Contact 
             key={contact.id}
             contact={contact}
-            onDelete={onDeleteContact}
-            onUpdate={onUpdateContact}
           />
         ))
       }
@@ -35,8 +34,8 @@ const ContactList = ({
   )
 }
 
-const Contact = ({contact, onUpdate, onDelete}) => {
-
+const Contact = ({contact}) => {
+  const { handleUpdateContact, handleDeleteContact } = useContext(contactsStore)
   const [isEditing, setIsEditing] = useState(false)
   const memoPhoto = useMemo(() => getRandomPhoto(), [])
 
@@ -48,7 +47,7 @@ const Contact = ({contact, onUpdate, onDelete}) => {
         <MyInput
           value={contact.name}
           onChangeText={ text => {
-            onUpdate({...contact, name: text})
+            handleUpdateContact({...contact, name: text})
           }}
         />
       </View>
@@ -90,7 +89,7 @@ const Contact = ({contact, onUpdate, onDelete}) => {
           )
       }
       <Pressable
-        onPress={() => onDelete(contact.id)}
+        onPress={() => handleDeleteContact(contact.id)}
       >
         <FontAwesome
           name="trash"
@@ -129,5 +128,11 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: 'bold',
     color: Colors.dark
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: Colors.primary
   }
 })
